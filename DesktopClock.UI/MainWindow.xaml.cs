@@ -24,10 +24,11 @@ namespace DesktopClock
             
             // we are our own view model
             this.DataContext = this;
+            this._clockText = "12:00 AM";
             this._closeClock = new CloseClock();
             
             // position the clock at top / right, primary screen
-            this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 25.0;
+            this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
 
             // setup our timer to...well...keep time
             _timer = new Timer();

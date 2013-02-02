@@ -14,6 +14,7 @@ namespace DesktopClock
         private Timer _timer;
         private string _clockText;
         private ICommand _closeClock;
+        private ICommand _showSettings;
 
         // For INCP
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,8 +25,9 @@ namespace DesktopClock
             
             // we are our own view model
             this.DataContext = this;
-            this._clockText = "12:00 AM";
+            this._clockText = DateTime.Now.ToShortTimeString();
             this._closeClock = new CloseClock();
+            this._showSettings = new ShowSettings();
             
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
@@ -57,6 +59,14 @@ namespace DesktopClock
         public ICommand CloseClock
         {
             get { return _closeClock; }
+        }
+
+        /// <summary>
+        /// Command binding used to show settings dialog
+        /// </summary>
+        public ICommand ShowSettings
+        {
+            get { return _showSettings; }
         }
 
         /// <summary>
@@ -103,6 +113,34 @@ namespace DesktopClock
         public void Execute(object parameter)
         {
             Application.Current.Shutdown();
+        }
+    }
+
+    /// <summary>
+    /// Command used to handle 'gear' clicks
+    /// </summary>
+    public class ShowSettings : ICommand
+    {
+        /// <summary>
+        /// Returns true if the command can execute; otherwise false.
+        /// </summary>
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Raised when the CanExecute value changes.
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        public void Execute(object parameter)
+        {
+            // show settings window
+            new Settings().ShowDialog();
         }
     }
 }

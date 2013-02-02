@@ -1,9 +1,16 @@
 ﻿<Window x:Class="DesktopClock.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Desk Clock" Height="110" Width="349"
-        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="Manual" Top="0" ShowInTaskbar="False">
+        Title="" 
+        Height="110" 
+        Width="349"
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        AllowsTransparency="True" 
+        Background="Transparent"
+        WindowStartupLocation="Manual" 
+        Top="0" 
+        ShowInTaskbar="False">
     <Grid>
         <TextBlock x:Name="currentTime"
                Cursor="Arrow"
@@ -32,7 +39,31 @@
                Content="X">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="{TemplateBinding Content}" 
+                               HorizontalAlignment="Stretch" 
+                               TextAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button FontFamily="Verdana" 
+               Background="{x:Null}"
+               FontWeight="Normal" 
+               Foreground="White" 
+               BorderBrush="{x:Null}"
+               BorderThickness="0"
+               HorizontalAlignment="Right" 
+               VerticalAlignment="Bottom"
+               Height="16"
+               Width="16"
+               Margin="0 0 4 24"
+               Cursor="Hand"
+               ToolTip="Settings"
+               Command="{Binding ShowSettings}"
+               Content="X">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image Source="gear.png" />
                 </ControlTemplate>
             </Button.Template>
         </Button>

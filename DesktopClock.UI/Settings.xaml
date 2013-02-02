@@ -18,8 +18,23 @@
             <Grid Background="White">
                 <TextBlock Text="SETTINGS"
                            FontFamily="Segoe UI Light"
-                           FontSize="18pt" Margin="10,0,10,227"
+                           FontSize="18pt" Margin="10,0,10,245"
                            />
+                <StackPanel Orientation="Vertical" Margin="42,75,42,75">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                        <CheckBox VerticalAlignment="Center" IsChecked="True"></CheckBox>
+                        <Label>Click to toggle time/date</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <Label>Opacity</Label>
+                        <Slider TickPlacement="BottomRight" 
+                                Minimum="0"
+                                Maximum="1"
+                                IsMoveToPointEnabled="False"
+                                Value="{Binding ClockOpacity, Mode=TwoWay}"
+                                Ticks="0.0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1.0"></Slider>
+                    </StackPanel>
+                </StackPanel>
                 <Button x:Name="btnClose"
                         Command="{Binding SaveSettings}"
                         Content="Done"

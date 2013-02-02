@@ -9,16 +9,20 @@ namespace DesktopClock
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, IMainViewModel, INotifyPropertyChanged
     {
         private Timer _timer;
         private string _clockText;
+        private double _clockOpacity;
         private ICommand _closeClock;
         private ICommand _showSettings;
 
         // For INCP
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Main window constructor.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -26,8 +30,9 @@ namespace DesktopClock
             // we are our own view model
             this.DataContext = this;
             this._clockText = DateTime.Now.ToShortTimeString();
-            this._closeClock = new CloseClock();
-            this._showSettings = new ShowSettings();
+            this._closeClock = new CloseClock(this);
+            this._clockOpacity = .3;
+            this._showSettings = new ShowSettings(this);
             
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
@@ -38,6 +43,14 @@ namespace DesktopClock
             _timer.Enabled = true;
             _timer.Elapsed += _timer_Elapsed;
             _timer.Start();
+        }
+
+        /// <summary>
+        /// Shuts down the clock.
+        /// </summary>
+        public void Shutdown()
+        {
+            Application.Current.Shutdown();
         }
         
         /// <summary>
@@ -70,6 +83,19 @@ namespace DesktopClock
         }
 
         /// <summary>
+        /// The desired opacity of the clock;
+        /// </summary>
+        public double ClockOpacity
+        {
+            get { return _clockOpacity; }
+            set
+            {
+                _clockOpacity = value;
+                RaisePropertyChanged("ClockOpacity");
+            }
+        }
+
+        /// <summary>
         /// Called when the timer fires.
         /// </summary>
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -94,6 +120,16 @@ namespace DesktopClock
     /// </summary>
     public class CloseClock : ICommand
     {
+        private IMainViewModel _host;
+
+        /// <summary>
+        /// Creates a new CloseClock instance.
+        /// </summary>
+        public CloseClock(IMainViewModel host)
+        {
+            _host = host;
+        }
+
         /// <summary>
         /// Returns true if the command can execute; otherwise false.
         /// </summary>
@@ -112,7 +148,7 @@ namespace DesktopClock
         /// </summary>
         public void Execute(object parameter)
         {
-            Application.Current.Shutdown();
+            _host.Shutdown();
         }
     }
 
@@ -121,6 +157,16 @@ namespace DesktopClock
     /// </summary>
     public class ShowSettings : ICommand
     {
+        private IMainViewModel _host;
+
+        /// <summary>
+        /// Creates a new ShowSettings instance using the specified host.
+        /// </summary>
+        public ShowSettings(IMainViewModel host)
+        {
+            _host = host;
+        }
+
         /// <summary>
         /// Returns true if the command can execute; otherwise false.
         /// </summary>
@@ -140,7 +186,8 @@ namespace DesktopClock
         public void Execute(object parameter)
         {
             // show settings window
-            new Settings().ShowDialog();
+            var settingsWindow = new Settings(_host);
+            settingsWindow.ShowDialog();
         }
     }
 }

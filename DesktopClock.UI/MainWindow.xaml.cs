@@ -26,16 +26,19 @@ namespace DesktopClock
         public MainWindow()
         {
             InitializeComponent();
-            
+
             // we are our own view model
             this.DataContext = this;
-            this._clockText = DateTime.Now.ToShortTimeString();
-            this._closeClock = new CloseClock(this);
             this._clockOpacity = .3;
+            this._closeClock = new CloseClock(this);            
             this._showSettings = new ShowSettings(this);
+            this._clockText = DateTime.Now.ToShortTimeString();            
             
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
+
+            // enable dragging
+            this.MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;
 
             // setup our timer to...well...keep time
             _timer = new Timer();
@@ -52,7 +55,7 @@ namespace DesktopClock
         {
             Application.Current.Shutdown();
         }
-        
+
         /// <summary>
         /// The text for the clock face
         /// </summary>
@@ -93,6 +96,15 @@ namespace DesktopClock
                 _clockOpacity = value;
                 RaisePropertyChanged("ClockOpacity");
             }
+        }
+
+        /// <summary>
+        /// Used to support dragging
+        /// </summary>
+        private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
         }
 
         /// <summary>

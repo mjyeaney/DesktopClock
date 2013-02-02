@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="" 
         Height="110" 
-        Width="349"
+        Width="350"
         WindowStyle="None" 
         ResizeMode="NoResize" 
         AllowsTransparency="True" 

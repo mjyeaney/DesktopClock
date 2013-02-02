@@ -21,6 +21,13 @@ namespace DesktopClock
             this.DataContext = this;
 
             _saveSettings = new SaveSettings(this);
+            MouseLeftButtonDown += Settings_MouseLeftButtonDown;
+        }
+
+        private void Settings_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
         }
 
         public ICommand SaveSettings

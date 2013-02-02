@@ -6,27 +6,37 @@
         Width="450"
         ResizeMode="NoResize"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TextBlock Text="SETTINGS"
-                   FontFamily="Segoe UI Light"
-                   FontSize="18pt" Margin="10,0,10,268"
-                   />
-        <Button x:Name="btnClose"
-                Command="{Binding SaveSettings}"
-                Content="Done"
-                Cursor="Hand"
-                ToolTip="Done"
-                Margin="351,259,10,10">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <TextBlock Text="{TemplateBinding Content}" 
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center"
-                               FontSize="12pt"/>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid Background="Transparent">
+        <Border Margin="10">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="315" 
+                                        ShadowDepth="0" Opacity=".5" BlurRadius="20" />
+            </Border.Effect>
+            <Grid Background="White">
+                <TextBlock Text="SETTINGS"
+                           FontFamily="Segoe UI Light"
+                           FontSize="18pt" Margin="10,0,10,227"
+                           />
+                <Button x:Name="btnClose"
+                        Command="{Binding SaveSettings}"
+                        Content="Done"
+                        Cursor="Hand"
+                        ToolTip="Done"
+                        Margin="351,242,10,10">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock Text="{TemplateBinding Content}" 
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontSize="12pt"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

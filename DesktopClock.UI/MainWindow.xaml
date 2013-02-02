@@ -13,14 +13,26 @@
                Opacity=".3"
                HorizontalAlignment="Right" 
                Text="{Binding Path=ClockText}" />
-        <TextBlock FontFamily="Verdana" 
+        <Button FontFamily="Verdana" 
+               Background="{x:Null}"
                FontWeight="Normal" 
                Foreground="White" 
-               Opacity=".2" 
+               BorderBrush="{x:Null}"
+               BorderThickness="0"
+               Opacity=".3" 
                HorizontalAlignment="Right" 
                VerticalAlignment="Top"
                Height="24"
+               Width="24"
                Cursor="Hand"
-               Text="X" />
+               ToolTip="Close"
+               Command="{Binding CloseClock}"
+               Content="X">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

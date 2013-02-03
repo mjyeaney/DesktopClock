@@ -23,7 +23,7 @@
                 <StackPanel Orientation="Vertical" Margin="42,75,42,75">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                         <CheckBox VerticalAlignment="Center" IsChecked="True">
-                            <Label>Alternate between date and time.</Label>
+                            <Label>Use 24-hour time format</Label>
                         </CheckBox>                        
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5,0,0,0">

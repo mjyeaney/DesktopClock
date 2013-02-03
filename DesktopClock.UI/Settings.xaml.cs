@@ -20,13 +20,13 @@ namespace DesktopClock
         /// <summary>
         /// Window constructor.
         /// </summary>
-        public Settings(IMainViewModel host)
+        public Settings(IMainViewModel host, double currentOpacity)
         {
             InitializeComponent();
             _host = host;
             this.DataContext = this;
 
-            _clockOpacity = .3;
+            _clockOpacity = currentOpacity;
             _saveSettings = new SaveSettings(this);
             MouseLeftButtonDown += Settings_MouseLeftButtonDown;
         }

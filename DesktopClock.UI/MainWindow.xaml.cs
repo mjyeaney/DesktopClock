@@ -32,7 +32,7 @@ namespace DesktopClock
             this._clockOpacity = .3;
             this._closeClock = new CloseClock(this);            
             this._showSettings = new ShowSettings(this);
-            this._clockText = DateTime.Now.ToShortTimeString();            
+            this._clockText = DateTime.Now.ToShortTimeString();           
             
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
@@ -198,7 +198,7 @@ namespace DesktopClock
         public void Execute(object parameter)
         {
             // show settings window
-            var settingsWindow = new Settings(_host);
+            var settingsWindow = new Settings(_host, _host.ClockOpacity);
             settingsWindow.ShowDialog();
         }
     }

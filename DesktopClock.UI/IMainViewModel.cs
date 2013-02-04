@@ -31,5 +31,11 @@ namespace DesktopClock
         /// The desired opacity of the clock;
         /// </summary>
         double ClockOpacity { get; set;  }
+
+        /// <summary>
+        /// True if we are to display 24 hour format;
+        /// otherwise false.
+        /// </summary>
+        bool Display24HourFormat { get; set; }
     }
 }

@@ -20,9 +20,9 @@
                            FontFamily="Segoe UI Light"
                            FontSize="18pt" Margin="10,0,10,245"
                            />
-                <StackPanel Orientation="Vertical" Margin="42,75,42,75">
+                <StackPanel Orientation="Vertical" Margin="42,60,42,43">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <CheckBox VerticalAlignment="Center" IsChecked="True">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding Display24HourFormat}">
                             <Label>Use 24-hour time format</Label>
                         </CheckBox>                        
                     </StackPanel>
@@ -35,6 +35,10 @@
                                 Value="{Binding ClockOpacity, Mode=TwoWay}"
                                 Ticks="0.0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1.0"></Slider>
                     </StackPanel>
+                    <TextBlock Margin="0,30,0,0" TextWrapping="Wrap"  TextAlignment="Center">
+                        Original project source code available on GitHub at:<LineBreak />
+                        <Hyperlink>http://github.com/mjyeaney/DesktopClock</Hyperlink>
+                    </TextBlock>
                 </StackPanel>
                 <Button x:Name="btnClose"
                         Command="{Binding SaveSettings}"

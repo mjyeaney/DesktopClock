@@ -18,6 +18,12 @@ namespace DesktopClock
         double ClockOpacity { get; set; }
 
         /// <summary>
+        /// True if we are to display 24-hour time format; 
+        /// otherwise false.
+        /// </summary>
+        bool Display24HourFormat { get; set; }
+
+        /// <summary>
         /// Command invoked when user clicks 'Done'
         /// </summary>
         ICommand SaveSettings { get; }

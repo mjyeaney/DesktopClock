@@ -13,6 +13,7 @@ namespace DesktopClock
         private IMainViewModel _host;
         private ICommand _saveSettings;
         private double _clockOpacity;
+        private bool _display24Hour;
 
         // INPC support
         public event PropertyChangedEventHandler PropertyChanged;
@@ -59,6 +60,21 @@ namespace DesktopClock
                 _clockOpacity = value;
                 _host.ClockOpacity = value;
                 RaisePropertyChanged("ClockOpacity");
+            }
+        }
+
+        /// <summary>
+        /// True if we are to display 24-hour time format; 
+        /// otherwise false.
+        /// </summary>
+        public bool Display24HourFormat
+        {
+            get { return _display24Hour; }
+            set
+            {
+                _display24Hour = value;
+                _host.Display24HourFormat = value;
+                RaisePropertyChanged("Display24HourFormat");
             }
         }
 

@@ -16,6 +16,7 @@ namespace DesktopClock
         private double _clockOpacity;
         private ICommand _closeClock;
         private ICommand _showSettings;
+        private bool _display24Hour;
 
         // For INCP
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,7 +33,7 @@ namespace DesktopClock
             this._clockOpacity = .3;
             this._closeClock = new CloseClock(this);            
             this._showSettings = new ShowSettings(this);
-            this._clockText = DateTime.Now.ToShortTimeString();           
+            this._clockText = getCurrentTimeString();
             
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
@@ -99,6 +100,20 @@ namespace DesktopClock
         }
 
         /// <summary>
+        /// True if we are to display 24 hour format;
+        /// otherwise false.
+        /// </summary>
+        public bool Display24HourFormat
+        {
+            get { return _display24Hour; }
+            set
+            {
+                _display24Hour = value;
+                RaisePropertyChanged("Display24HourFormat");
+            }
+        }
+
+        /// <summary>
         /// Used to support dragging
         /// </summary>
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -112,7 +127,22 @@ namespace DesktopClock
         /// </summary>
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            ClockText = DateTime.Now.ToShortTimeString();
+            ClockText = getCurrentTimeString();
+        }
+
+        /// <summary>
+        /// Returns the current time, formatted as 12/24 hour format.
+        /// </summary>
+        private string getCurrentTimeString()
+        {
+            if (_display24Hour)
+            {
+                return DateTime.Now.ToString("HH:mm");
+            }
+            else
+            {
+                return DateTime.Now.ToString("hh:mm tt");
+            }
         }
 
         /// <summary>

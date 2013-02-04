@@ -110,6 +110,7 @@ namespace DesktopClock
             {
                 _display24Hour = value;
                 RaisePropertyChanged("Display24HourFormat");
+                ClockText = getCurrentTimeString();
             }
         }
 
@@ -141,7 +142,7 @@ namespace DesktopClock
             }
             else
             {
-                return DateTime.Now.ToString("hh:mm tt");
+                return DateTime.Now.ToString("h:mm tt");
             }
         }
 

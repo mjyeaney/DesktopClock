@@ -24,6 +24,12 @@ namespace DesktopClock
         bool Display24HourFormat { get; set; }
 
         /// <summary>
+        /// True if we are to use white text to render;
+        /// otherwise, false.
+        /// </summary>
+        bool UseWhiteText { get; set; }
+
+        /// <summary>
         /// Command invoked when user clicks 'Done'
         /// </summary>
         ICommand SaveSettings { get; }

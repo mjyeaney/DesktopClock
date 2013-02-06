@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace DesktopClock
 {
@@ -14,6 +15,7 @@ namespace DesktopClock
         private ICommand _saveSettings;
         private double _clockOpacity;
         private bool _display24Hour;
+        private bool _useWhiteText;
 
         // INPC support
         public event PropertyChangedEventHandler PropertyChanged;
@@ -21,14 +23,15 @@ namespace DesktopClock
         /// <summary>
         /// Window constructor.
         /// </summary>
-        public Settings(IMainViewModel host, double currentOpacity)
+        public Settings(IMainViewModel host, double currentOpacity, Brush currentTextColor)
         {
             InitializeComponent();
-            _host = host;
             this.DataContext = this;
-
+            _host = host;            
+            _useWhiteText = true;
             _clockOpacity = currentOpacity;
             _saveSettings = new SaveSettings(this);
+            _useWhiteText = (currentTextColor == Brushes.White);
             MouseLeftButtonDown += Settings_MouseLeftButtonDown;
         }
 
@@ -79,6 +82,21 @@ namespace DesktopClock
         }
 
         /// <summary>
+        /// True if we are to use white text to render;
+        /// otherwise, false.
+        /// </summary>
+        public bool UseWhiteText
+        {
+            get { return _useWhiteText; }
+            set
+            {
+                _useWhiteText = value;
+                _host.TextBrush = (_useWhiteText ? Brushes.White : Brushes.Black);
+                RaisePropertyChanged("UseWhiteText");
+            }
+        }
+
+        /// <summary>
         /// Command invoked when user clicks 'Done'
         /// </summary>
         public ICommand SaveSettings
@@ -95,44 +113,6 @@ namespace DesktopClock
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
-        }
-    }
-
-    /// <summary>
-    /// Command used to support saving the new settings.
-    /// </summary>
-    public class SaveSettings : ICommand
-    {
-        private ISettingsViewModel _host;
-
-        /// <summary>
-        /// Creates a new instance of this command.
-        /// </summary>
-        /// <param name="host">The hosting Window control</param>
-        public SaveSettings(ISettingsViewModel host)
-        {
-            _host = host;
-        }
-
-        /// <summary>
-        /// Returns true if the command can execute; otherwise false.
-        /// </summary>
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Raised when the CanExecute value changes.
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-
-        /// <summary>
-        /// Executes the command.
-        /// </summary>
-        public void Execute(object parameter)
-        {
-            _host.CloseSettings();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using System.Windows.Media;
 
 namespace DesktopClock
 {
@@ -37,5 +38,10 @@ namespace DesktopClock
         /// otherwise false.
         /// </summary>
         bool Display24HourFormat { get; set; }
+
+        /// <summary>
+        /// The color used to render the clock.
+        /// </summary>
+        Brush TextBrush { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace DesktopClock
 {
@@ -17,6 +18,7 @@ namespace DesktopClock
         private ICommand _closeClock;
         private ICommand _showSettings;
         private bool _display24Hour;
+        private Brush _textBrush;
 
         // For INCP
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,10 +32,11 @@ namespace DesktopClock
 
             // we are our own view model
             this.DataContext = this;
-            this._clockOpacity = .3;
-            this._closeClock = new CloseClock(this);            
-            this._showSettings = new ShowSettings(this);
-            this._clockText = getCurrentTimeString();
+            _clockOpacity = .2;
+            _closeClock = new CloseClock(this);            
+            _showSettings = new ShowSettings(this);
+            _clockText = getCurrentTimeString();
+            _textBrush = Brushes.White;
             
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
@@ -100,6 +103,19 @@ namespace DesktopClock
         }
 
         /// <summary>
+        /// The color used to render the clock.
+        /// </summary>
+        public Brush TextBrush
+        {
+            get { return _textBrush; }
+            set
+            {
+                _textBrush = value;
+                RaisePropertyChanged("TextBrush");
+            }
+        }
+
+        /// <summary>
         /// True if we are to display 24 hour format;
         /// otherwise false.
         /// </summary>
@@ -138,7 +154,7 @@ namespace DesktopClock
         {
             if (_display24Hour)
             {
-                return DateTime.Now.ToString("HH:mm");
+                return DateTime.Now.ToString("H:mm");
             }
             else
             {
@@ -155,82 +171,6 @@ namespace DesktopClock
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
-        }
-    }
-
-    /// <summary>
-    /// Command used to handle shutdown event (user clicked on 'x').
-    /// </summary>
-    public class CloseClock : ICommand
-    {
-        private IMainViewModel _host;
-
-        /// <summary>
-        /// Creates a new CloseClock instance.
-        /// </summary>
-        public CloseClock(IMainViewModel host)
-        {
-            _host = host;
-        }
-
-        /// <summary>
-        /// Returns true if the command can execute; otherwise false.
-        /// </summary>
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Raised when the CanExecute value changes.
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-
-        /// <summary>
-        /// Executes the command.
-        /// </summary>
-        public void Execute(object parameter)
-        {
-            _host.Shutdown();
-        }
-    }
-
-    /// <summary>
-    /// Command used to handle 'gear' clicks
-    /// </summary>
-    public class ShowSettings : ICommand
-    {
-        private IMainViewModel _host;
-
-        /// <summary>
-        /// Creates a new ShowSettings instance using the specified host.
-        /// </summary>
-        public ShowSettings(IMainViewModel host)
-        {
-            _host = host;
-        }
-
-        /// <summary>
-        /// Returns true if the command can execute; otherwise false.
-        /// </summary>
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Raised when the CanExecute value changes.
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-
-        /// <summary>
-        /// Executes the command.
-        /// </summary>
-        public void Execute(object parameter)
-        {
-            // show settings window
-            var settingsWindow = new Settings(_host, _host.ClockOpacity);
-            settingsWindow.ShowDialog();
         }
     }
 }

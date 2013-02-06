@@ -16,7 +16,7 @@
                Cursor="Arrow"
                FontFamily="Segoe UI Light"
                FontSize="60pt"
-               Foreground="White"
+               Foreground="{Binding TextBrush}"
                Opacity="{Binding ClockOpacity}"
                Margin="0 0 20 0"
                HorizontalAlignment="Right" 
@@ -63,7 +63,7 @@
                Content="X">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image Source="gear.png" />
+                    <Image Source="Images/gear.png" />
                 </ControlTemplate>
             </Button.Template>
         </Button>

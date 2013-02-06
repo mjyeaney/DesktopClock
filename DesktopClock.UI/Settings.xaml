@@ -40,7 +40,7 @@
                     </StackPanel>
                     <TextBlock Margin="0,30,0,0" TextWrapping="Wrap"  TextAlignment="Center">
                         Original project source code available on GitHub at:<LineBreak />
-                        <Hyperlink IsEnabled="True"  NavigateUri="http://github.com/mjyeaney/DesktopClock" TextDecorations="">http://github.com/mjyeaney/DesktopClock</Hyperlink>
+                        <Hyperlink Click="Hyperlink_Click" NavigateUri="http://github.com/mjyeaney/DesktopClock" TextDecorations="">http://github.com/mjyeaney/DesktopClock</Hyperlink>
                     </TextBlock>
                 </StackPanel>
                 <Button x:Name="btnClose"

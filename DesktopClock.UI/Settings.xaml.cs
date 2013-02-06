@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -113,6 +115,15 @@ namespace DesktopClock
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
+        }
+
+        /// <summary>
+        /// Handles a user click on the navigation link.
+        /// TODO: Should this be a command?
+        /// </summary>
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(((Hyperlink)sender).NavigateUri.ToString());
         }
     }
 }

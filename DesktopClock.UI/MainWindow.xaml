@@ -10,6 +10,7 @@
         Background="Transparent"
         WindowStartupLocation="Manual" 
         Top="0" 
+        Topmost="True"
         ShowInTaskbar="False">
     <Grid>
         <TextBlock x:Name="currentTime"

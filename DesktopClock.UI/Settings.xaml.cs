@@ -18,6 +18,7 @@ namespace DesktopClock
         private double _clockOpacity;
         private bool _display24Hour;
         private bool _useWhiteText;
+        private double _userFontSize;
 
         // INPC support
         public event PropertyChangedEventHandler PropertyChanged;
@@ -34,6 +35,7 @@ namespace DesktopClock
             _clockOpacity = currentOpacity;
             _saveSettings = new SaveSettings(this);
             _useWhiteText = (currentTextColor == Brushes.White);
+            _userFontSize = host.UserFontSize;
             MouseLeftButtonDown += Settings_MouseLeftButtonDown;
         }
 
@@ -95,6 +97,20 @@ namespace DesktopClock
                 _useWhiteText = value;
                 _host.TextBrush = (_useWhiteText ? Brushes.White : Brushes.Black);
                 RaisePropertyChanged("UseWhiteText");
+            }
+        }
+
+        /// <summary>
+        /// The font size used to render the clock;
+        /// </summary>
+        public double UserFontSize
+        {
+            get { return _userFontSize; }
+            set
+            {
+                _userFontSize = value;
+                _host.UserFontSize = value;
+                RaisePropertyChanged("UserFontSize");
             }
         }
 

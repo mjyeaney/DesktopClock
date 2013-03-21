@@ -19,6 +19,7 @@ namespace DesktopClock
         private ICommand _showSettings;
         private bool _display24Hour;
         private Brush _textBrush;
+        private double _userFontSize;
 
         // For INCP
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,11 +34,12 @@ namespace DesktopClock
             // we are our own view model
             this.DataContext = this;
             _clockOpacity = .2;
-            _closeClock = new CloseClock(this);            
+            _closeClock = new CloseClock(this);
             _showSettings = new ShowSettings(this);
             _clockText = getCurrentTimeString();
             _textBrush = Brushes.White;
-            
+            _userFontSize = 80;
+
             // position the clock at top / right, primary screen
             this.Left = SystemParameters.PrimaryScreenWidth - this.Width - 5.0;
 
@@ -131,6 +133,19 @@ namespace DesktopClock
         }
 
         /// <summary>
+        /// The font size used to render the clock.
+        /// </summary>
+        public double UserFontSize
+        {
+            get { return _userFontSize; }
+            set
+            {
+                _userFontSize = value;
+                RaisePropertyChanged("UserFontSize");
+            }
+        }
+
+        /// <summary>
         /// Used to support dragging
         /// </summary>
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -171,6 +186,11 @@ namespace DesktopClock
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
+        }
+
+        private void Window_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.ShowSettings.Execute(this);
         }
     }
 }

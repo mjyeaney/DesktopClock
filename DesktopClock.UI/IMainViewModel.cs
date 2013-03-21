@@ -43,5 +43,10 @@ namespace DesktopClock
         /// The color used to render the clock.
         /// </summary>
         Brush TextBrush { get; set; }
+
+        /// <summary>
+        /// The font size used to render the clock.
+        /// </summary>
+        double UserFontSize { get; set; }
     }
 }

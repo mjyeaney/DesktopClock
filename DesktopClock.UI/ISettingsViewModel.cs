@@ -30,6 +30,11 @@ namespace DesktopClock
         bool UseWhiteText { get; set; }
 
         /// <summary>
+        /// The font size used to render the clock;
+        /// </summary>
+        double UserFontSize { get; set; }
+
+        /// <summary>
         /// Command invoked when user clicks 'Done'
         /// </summary>
         ICommand SaveSettings { get; }
